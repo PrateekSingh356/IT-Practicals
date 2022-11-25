@@ -1,0 +1,39 @@
+9. Write a program for binary to ascii conversion 
+.model small
+.data
+input db 10,13 , 'Enter Binary No: $'
+output db 10,13, 'The ASCII character is:$'
+arr db ?
+
+.code
+.startup
+mov ax,@data
+mov ds,ax
+
+mov ah,09H
+lea dx,input
+int 21H
+
+mov bl, 00H
+mov cl,08H
+
+input1:
+mov ah,01H
+int 21H
+
+sub al,30H
+shl bl,1
+add bl,al
+loop input1
+mov arr,bl
+
+mov ah,09H
+lea dx,output
+int 21H  
+
+mov ah,02H
+mov dl,arr  
+int 21H
+
+.exit
+end
